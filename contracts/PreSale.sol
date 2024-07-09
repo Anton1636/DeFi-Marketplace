@@ -9,7 +9,7 @@ interface IERC20 {
   function name() external view returns(string memory);
 }
 
-contract ICOMarketPplace{
+contract ICOMarketplace{
   struct TokenDetails{
     address token;
     bool supported;
