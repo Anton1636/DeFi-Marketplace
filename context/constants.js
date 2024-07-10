@@ -20,7 +20,7 @@ const networks = {
 			symbol: 'MATIC',
 			decimals: 18,
 		},
-		rpcUrls: ['https://rpc-amoy.polygon.technology/'],
+		rpcUrls: ['https://rpc.ankr.com/polygon_amoy'],
 		blockExplorerUrls: ['https://www.oklink.com/amoy'],
 	},
 	polygon: {

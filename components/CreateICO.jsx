@@ -2,41 +2,34 @@ import React, { useState, useEffect } from 'react'
 import Input from './Input'
 import Button from './Button'
 
-const WithdrawToken = ({
-	address,
-	withdrawToken,
+const CreatedICO = ({
+	shortenAddress,
+	setOpenCreateICO,
 	connectWallet,
-	setOpenWithdraw,
+	address,
+	createICOSALE,
 }) => {
-	const [withdrawQuantity, setWithdrawQuantity] = useState({
-		token: '',
-		amount: '',
-	})
+	const [icoSale, setIcoSale] = useState({ address: '', price: '' })
+
 	return (
 		<div className='modal'>
 			<div className='modal-content'>
-				<span onClick={() => setOpenWithdraw(false)} className='close'>
+				<span onClick={() => setOpenCreateICO(false)} className='close'>
 					&times;
 				</span>
-				<h2>Withdraw Token</h2>
+				<h2>Create ICO</h2>
 				<div className='input-Container' style={{ marginTop: '1rem' }}>
 					<Input
-						placeholder={'Token Address'}
+						placeholder={'Address'}
 						handleChange={e =>
-							setWithdrawQuantity({
-								...withdrawQuantity,
-								address: e.target.value,
-							})
+							setIcoSale({ ...icoSale, address: e.target.value })
 						}
 					/>
 
 					<Input
-						placeholder={'Quantity'}
+						placeholder={'Price'}
 						handleChange={e =>
-							setWithdrawQuantity({
-								...withdrawQuantity,
-								amount: e.target.value,
-							})
+							setIcoSale({ ...icoSale, price: e.target.value })
 						}
 					/>
 				</div>
@@ -44,8 +37,8 @@ const WithdrawToken = ({
 				<div className='button-box' style={{ marginTop: '1rem' }}>
 					{address ? (
 						<Button
-							name='Withdraw Token'
-							handleClick={() => withdrawToken(withdrawQuantity)}
+							name='Create ICO'
+							handleClick={() => createICOSALE(icoSale)}
 						/>
 					) : (
 						<Button name='Connect Wallet' handleClick={() => connectWallet()} />
@@ -56,4 +49,4 @@ const WithdrawToken = ({
 	)
 }
 
-export default WithdrawToken
+export default CreatedICO

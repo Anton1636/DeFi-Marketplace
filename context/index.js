@@ -30,10 +30,10 @@ export const StateContextProvider = ({ children }) => {
 	const [openWithdrawToken, setOpenWithdraw] = useState(false)
 	const [openTransferToken, setOpenTransferToken] = useState(false)
 	const [openTokenCreator, setOpenTokenCreator] = useState(false)
-	const [openCrateICO, setOpenCrateICO] = useState(false)
+	const [openCreateICO, setOpenCreateICO] = useState(false)
 
-	const notifySuccess = msg => toast.success(msg, { duration: 300 })
-	const notifyError = msg => toast.error(msg, { duration: 300 })
+	const notifySuccess = msg => toast.success(msg, { duration: 3000 })
+	const notifyError = msg => toast.error(msg, { duration: 3000 })
 
 	const checkIfWalletConnected = async () => {
 		try {
@@ -53,7 +53,6 @@ export const StateContextProvider = ({ children }) => {
 			}
 		} catch (error) {
 			console.log(error)
-			notifyError('No account')
 		}
 	}
 
@@ -251,7 +250,7 @@ export const StateContextProvider = ({ children }) => {
 			await connectWallet()
 
 			const contract = await ICO_MARKETPLACE_CONTRACT()
-			const payAmount = ethers.utils.parseUnits(price.toString(), 'ethers')
+			const payAmount = ethers.utils.parseUnits(price.toString(), 'ether')
 			const transaction = await contract.createICOSALE(address, payAmount, {
 				gasLimit: ethers.utils.hexlify(8000000),
 			})
@@ -260,12 +259,12 @@ export const StateContextProvider = ({ children }) => {
 
 			if (transaction.hash) {
 				setLoader(false)
-				setOpenCrateICO(false)
+				setOpenCreateICO(false)
 				setReCall(reCall + 1)
 			}
 		} catch (error) {
 			setLoader(false)
-			setOpenCrateICO(false)
+			setOpenCreateICO(false)
 			notifyError('Something went wrong')
 			console.log(error)
 		}
@@ -407,17 +406,18 @@ export const StateContextProvider = ({ children }) => {
 				GET_ALL_USER_ICOSALE_TOKEN,
 				createERC20,
 				connectWallet,
-				checkIfWalletConnected,
+				PINATA_AIP_KEY,
+				PINATA_SECRET_KEY,
+				ICO_MARKETPLACE_ADDRESS,
 				openBuyToken,
 				setOpenBuyToken,
 				openWithdrawToken,
 				setOpenWithdraw,
 				openTransferToken,
 				setOpenTransferToken,
-				openTokenCreator,
-				setOpenTokenCreator,
-				openCrateICO,
-				setOpenCrateICO,
+				openCreateICO,
+				setOpenCreateICO,
+				checkIfWalletConnected,
 				address,
 				setAddress,
 				accountBalance,
@@ -425,10 +425,8 @@ export const StateContextProvider = ({ children }) => {
 				loader,
 				setLoader,
 				currency,
-				setCurrency,
-				PINATA_AIP_KEY,
-				PINATA_SECRET_KEY,
 				shortenAddress,
+				reCall,
 			}}
 		>
 			{children}
